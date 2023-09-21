@@ -14,11 +14,13 @@
 
             <div class="page-header" id="banner">
                 <h2>Add an employee</h2>
-                <form action="#" th:action="@{/employees/add}" method="POST">
+                <form action="#" th:action="@{/employees/add}" method="POST" th:object="${employeeDTO}">
                     <div class="form-group">
-                        Name: <input type="text" th:name="name"/>
-                        Surname: <input type="text" th:name="surname"/>
-                        Salary: <input type="text" th:name="salary"/>
+                        Name: <input type="text" th:field="*{name}"/><br>
+                        Surname: <input type="text" th:field="*{surname}"/><br>
+                        Salary: <input type="text" th:field="*{salary}"/><br>
+                        Phone: <input type="text" th:field="*{phone}"/><br>
+                        Email: <input type="text" th:field="*{email}"/><br>
                     </div>
                     <div class="form-group">
                         <input type="submit" value="Create employee" name="button"/>
@@ -30,12 +32,14 @@
             <form action="#"
                   th:action="@{employees/update}"
                   th:method="PUT"
-                  th:object="${updateEmployeeDTO}">
+                  th:object="${employeeDTO}">
                 <div calss="form-group">
-                    ID: <input type="text" th:field="*{employeeId}"/>
-                    NAME: <input type="text" th:field="*{name}"/>
-                    SURNAME: <input type="text" th:field="*{surname}"/>
-                    SALARY: <input type="text" th:field="*{salary}"/>
+                    Id: <input type="text" th:field="*{employeeId}"/><br>
+                    Name: <input type="text" th:field="*{name}"/><br>
+                    Surname: <input type="text" th:field="*{surname}"/><br>
+                    Salary: <input type="text" th:field="*{salary}"/><br>
+                    Phone: <input type="text" th:field="*{phone}"/><br>
+                    Emial: <input type="text" th:field="*{email}"/><br>
                 </div>
                 <br>
                 <div class="form-group">
@@ -51,6 +55,8 @@
                        <th>Name</th>
                        <th>Surname</th>
                        <th>Salary</th>
+                       <th>Email</th>
+                       <th>Phone</th>
                         <th></th>
                         <th></th>
                     </tr>
@@ -59,6 +65,8 @@
                         <td th:text="${employee.name}"></td>
                         <td th:text="${employee.surname}"></td>
                         <td th:text="${employee.salary}"></td>
+                        <td th:text="${employee.email}"></td>
+                        <td th:text="${employee.phone}"></td>
                         <td>
                             <form action="#" th:action="@{employees/show/{employeeId}(employeeId=${employee.employeeId})}"
                             method="GET">

@@ -29,4 +29,11 @@ public class EmployeeEntity {
 
     @Column(name = "salary")
     private BigDecimal salary;
+
+    @Column(name = "phone")
+    private String phone;
+
+    @Column(name = "email")
+    private String email;
+
 }

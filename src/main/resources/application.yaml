@@ -28,7 +28,7 @@ spring:
       filter:
         enabled: true
 
-logging:
-  level:
-    root: WARN
-    pl.zajavka.api.controller: DEBUG
+#logging:
+#  level:
+#    root: DEBUG
+#    pl.zajavka.api.controller: DEBUG
