@@ -15,7 +15,7 @@ import pl.zajavka.util.EntityFixtures;
 import java.util.Optional;
 
 @ExtendWith(MockitoExtension.class)
-class EmployeesControllerTest {
+class EmployeesControllerMockitoTest {
 
     @Mock
     private EmployeeRepository employeeRepository;
