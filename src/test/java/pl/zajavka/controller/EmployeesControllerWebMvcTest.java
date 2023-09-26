@@ -15,7 +15,7 @@ import pl.zajavka.infrastructure.database.repository.EmployeeRepository;
 import java.util.Map;
 import java.util.stream.Stream;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(controllers = EmployeesController.class)
