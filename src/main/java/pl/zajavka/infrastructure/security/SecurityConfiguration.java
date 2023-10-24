@@ -52,13 +52,13 @@ public class SecurityConfiguration {
 
     @Bean
     @ConditionalOnProperty(value = "spring.security.enabled", havingValue = "true", matchIfMissing = true)
-    public SecurityFilterChain securityEnabled(HttpSecurity httpSecurity) throws Exception {
+    SecurityFilterChain securityEnabled(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests
+                        .requestMatchers(HttpMethod.DELETE).hasAuthority("ADMIN")
                         .requestMatchers("/login", "/error", "/images/oh_no.png").permitAll()
                         .requestMatchers("/employees/**", "/images/**").hasAnyAuthority("USER", "ADMIN")
-                        .requestMatchers(HttpMethod.DELETE).hasAuthority("ADMIN")
                 )
                 .formLogin(AbstractAuthenticationFilterConfigurer::permitAll)
                 .logout(logout -> logout
@@ -72,7 +72,7 @@ public class SecurityConfiguration {
 
     @Bean
     @ConditionalOnProperty(value = "spring.security.enabled", havingValue = "false")
-    public SecurityFilterChain securityDisabled(HttpSecurity httpSecurity) throws Exception {
+    SecurityFilterChain securityDisabled(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(request -> request

@@ -2,7 +2,6 @@ package pl.zajavka.infrastructure.security;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
@@ -36,7 +35,7 @@ public class ZajavkaUserDetailsService implements UserDetailsService {
             UserEntity user,
             List<SimpleGrantedAuthority> authorities
     ) {
-        return new User(
+        return new org.springframework.security.core.userdetails.User(
                 user.getUserName(),
                 user.getPassword(),
                 user.getActive(),
