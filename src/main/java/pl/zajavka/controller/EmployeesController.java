@@ -3,12 +3,18 @@ package pl.zajavka.controller;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import pl.zajavka.infrastructure.database.entity.EmployeeEntity;
 import pl.zajavka.infrastructure.database.repository.EmployeeRepository;
+import pl.zajavka.infrastructure.security.CustomerUserDetails;
+import pl.zajavka.infrastructure.security.UserEntity;
+import pl.zajavka.infrastructure.security.ZajavkaUserDetailsService;
 
 import java.util.List;
 
@@ -20,10 +26,14 @@ public class EmployeesController {
     private final EmployeeRepository employeeRepository;
 
     @GetMapping
-    public String employees(Model model) {
+    public String employees(Model model, Authentication authentication) {
         List<EmployeeEntity> employees = employeeRepository.findAll();
         model.addAttribute("employees", employees);
         model.addAttribute("employeeDTO", new EmployeeDTO());
+
+        if (authentication != null && authentication.getPrincipal() instanceof UserDetails userDetails) {
+            model.addAttribute("userData", userDetails.getUsername());
+        }
         return "employees";
     }
 
@@ -78,4 +88,5 @@ public class EmployeesController {
         employeeRepository.deleteById(employeeId);
         return "redirect:/employees";
     }
+
 }
